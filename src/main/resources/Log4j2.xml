@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-
         <RollingFile name="MyFile" fileName="logs/app.log"
                      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log"
                      ignoreExceptions="true">
@@ -19,6 +18,7 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{6} - %msg%n %ex{short}"/>
         </Console>
     </Appenders>
+
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="Console"/>
