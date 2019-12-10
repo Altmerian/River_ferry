@@ -22,9 +22,11 @@ public class Application {
         Ferry ferry = setupFerry();
         createFerryBoat(ferry);
 
+        ExecutorService es = Executors.newCachedThreadPool();
+        es.submit(FerryBoat.INSTANCE);
+
         CarCreator carCreator = new CarCreator();
         List<Future<Boolean>> list = new ArrayList<>();
-        ExecutorService es = Executors.newCachedThreadPool();
         for (int i = 0; i < ferry.getCarsCountToFerry(); i++) {
             list.add(es.submit(carCreator.createCar()));
         }
