@@ -1,6 +1,5 @@
 package by.epam.pavelshakhlovich.riverferry.ferry;
 
-import com.google.common.util.concurrent.AtomicDouble;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,9 +9,9 @@ import java.util.concurrent.TimeUnit;
 public class FerryBoat implements Runnable {
     public static final FerryBoat INSTANCE = new FerryBoat();
     private final static Logger logger = LogManager.getLogger();
-    public Phaser checkpoint = new Phaser();
-    public AtomicDouble freeArea;
-    public AtomicDouble freeCapacity;
+    public Phaser checkpoint;
+    public double reservedArea;
+    public double reservedCapacity;
     private double loadingArea;
     private double carryingCapacity;
 
@@ -22,35 +21,37 @@ public class FerryBoat implements Runnable {
     @Override
     public void run() {
         checkpoint.register();
-        while (checkpoint.getUnarrivedParties() > 0) {
-            freeArea.set(loadingArea);
-            freeCapacity.set(carryingCapacity);
-            checkpoint.arriveAndAwaitAdvance();
+        do {
             try {
-                TimeUnit.SECONDS.sleep(2);
-                logger.info("Ferry boat has made {} run and ferried the cars!", checkpoint.getPhase() + 1);
+                TimeUnit.SECONDS.sleep(3);
+                checkpoint.arriveAndAwaitAdvance();
             } catch (InterruptedException e) {
                 logger.error("Ferry boat was stopped by unknown cause!");
             }
-        }
+        } while (!checkpoint.isTerminated());
 
+                checkpoint.arriveAndDeregister();
+        logger.info("All cars were ferried");
     }
 
-
-    public AtomicDouble getFreeArea() {
-        return freeArea;
+    public void setCheckpoint(Phaser checkpoint) {
+        this.checkpoint = checkpoint;
     }
 
-    public void setFreeArea(AtomicDouble freeArea) {
-        this.freeArea = freeArea;
+    public double getReservedArea() {
+        return reservedArea;
     }
 
-    public AtomicDouble getFreeCapacity() {
-        return freeCapacity;
+    public void setReservedArea(double reservedArea) {
+        this.reservedArea = reservedArea;
     }
 
-    public void setFreeCapacity(AtomicDouble freeCapacity) {
-        this.freeCapacity = freeCapacity;
+    public double getReservedCapacity() {
+        return reservedCapacity;
+    }
+
+    public void setReservedCapacity(double reservedCapacity) {
+        this.reservedCapacity = reservedCapacity;
     }
 
     public double getLoadingArea() {

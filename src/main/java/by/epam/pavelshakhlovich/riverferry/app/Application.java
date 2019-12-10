@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.Phaser;
 
 public class Application {
     private final static Logger logger = LogManager.getLogger();
@@ -30,15 +31,26 @@ public class Application {
         for (int i = 0; i < ferry.getCarsCountToFerry(); i++) {
             list.add(es.submit(carCreator.createCar()));
         }
-        es.shutdown();
         for (Future<Boolean> future : list) {
-            System.out.println("The car has been successfully ferried " + future.get());
+            logger.info("The car has been successfully ferried: " + future.get());
         }
+        es.shutdown();
     }
 
     private static void createFerryBoat(Ferry ferry) {
         FerryBoat.INSTANCE.setLoadingArea(ferry.getRequiredLoadingArea());
         FerryBoat.INSTANCE.setCarryingCapacity(ferry.getRequiredCarryingCapacity());
+        Phaser phaser = new Phaser() {
+            @Override
+            public boolean onAdvance(int phase, int parties) {
+                FerryBoat.INSTANCE.setReservedArea(0.00);
+                FerryBoat.INSTANCE.setReservedCapacity(0.00);
+                logger.info("Ferry boat has made {} run and ferried the cars!",
+                        getPhase() + 1);
+                return getArrivedParties() <= 1;
+            }
+        };
+        FerryBoat.INSTANCE.setCheckpoint(phaser);
     }
 
     /**
