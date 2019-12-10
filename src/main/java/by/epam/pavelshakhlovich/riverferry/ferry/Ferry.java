@@ -1,38 +1,56 @@
 package by.epam.pavelshakhlovich.riverferry.ferry;
 
-import by.epam.pavelshakhlovich.riverferry.car.Car;
-import by.epam.pavelshakhlovich.riverferry.car.CarCreator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
 public class Ferry {
-    private double loadingArea;
-    private double carryingCapacity;
-    private static final Ferry INSTANCE = new Ferry();
-    Queue<Car> carQueue = new ConcurrentLinkedQueue<>();
-    private final static Logger logger = LogManager.getLogger();
+    double requiredLoadingArea;
+    double requiredCarryingCapacity;
+    int carsCountToFerry;
 
-        public static void main(String[] args) throws Exception {
-            CarCreator carCreator = new CarCreator();
-            List<Future<Boolean>> list = new ArrayList<>();
-            ExecutorService es = Executors.newFixedThreadPool(2);
-            for (int i = 0; i < 7; i++) {
-                list.add(es.submit(carCreator.createCar()));
-            }
-            es.shutdown();
-            for (Future<Boolean> future : list) {
-                System.out.println("The car has been successfully ferried " + future.get());
-            }
+    public Ferry() {
+    }
+
+    public Ferry(double requiredLoadingArea, double requiredCarryingCapacity, int carsCountToFerry) {
+        this.requiredLoadingArea = requiredLoadingArea;
+        this.requiredCarryingCapacity = requiredCarryingCapacity;
+        this.carsCountToFerry = carsCountToFerry;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Ferry)) {
+            return false;
         }
 
+        Ferry ferry = (Ferry) obj;
 
+        if (Double.compare(ferry.requiredLoadingArea, requiredLoadingArea) != 0) {
+            return false;
+        }
+        if (Double.compare(ferry.requiredCarryingCapacity, requiredCarryingCapacity) != 0) {
+            return false;
+        }
+        return carsCountToFerry == ferry.carsCountToFerry;
+    }
 
+    @Override
+    public int hashCode() {
+        int result = Double.hashCode(requiredLoadingArea);
+        result = 31 * result + Double.hashCode(requiredCarryingCapacity);
+        result = 31 * result + carsCountToFerry;
+        return result;
+    }
+
+    public double getRequiredLoadingArea() {
+        return requiredLoadingArea;
+    }
+
+    public double getRequiredCarryingCapacity() {
+        return requiredCarryingCapacity;
+    }
+
+    public int getCarsCountToFerry() {
+        return carsCountToFerry;
+    }
 }

@@ -1,0 +1,5 @@
+{
+  "requiredLoadingArea": 60.0,
+  "requiredCarryingCapacity": 20.0,
+  "carsCountToFerry": 15
+}

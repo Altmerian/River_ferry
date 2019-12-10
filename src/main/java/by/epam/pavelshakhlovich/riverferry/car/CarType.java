@@ -1,8 +1,8 @@
 package by.epam.pavelshakhlovich.riverferry.car;
 
 public enum CarType {
-    PASSENGER (1.0, 1.0),
-    FREIGHT (1.5, 2.0);
+    PASSENGER(1.0, 1.0),
+    FREIGHT(1.5, 2.0);
 
     private double areaMultiplier;
     private double weightMultiplier;
