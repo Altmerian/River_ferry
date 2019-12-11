@@ -1,9 +1,9 @@
 package by.epam.pavelshakhlovich.riverferry.ferry;
 
 public class Ferry {
-    double requiredLoadingArea;
-    double requiredCarryingCapacity;
-    int carsCountToFerry;
+    private double requiredLoadingArea;
+    private double requiredCarryingCapacity;
+    private int carsCountToFerry;
 
     public Ferry() {
     }

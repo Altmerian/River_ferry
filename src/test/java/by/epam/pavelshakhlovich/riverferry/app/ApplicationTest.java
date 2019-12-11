@@ -13,11 +13,11 @@ public class ApplicationTest {
 
     @Test
     public void testInitFerry() {
-        Ferry expected = new Ferry(60.0, 20.0, 15);
+        Ferry expected = new Ferry(70.0, 20.0, 15);
         ObjectMapper objectMapper = new ObjectMapper();
         Ferry actual = new Ferry();
         try {
-            actual = objectMapper.readValue(new File("data/data.json"), Ferry.class);
+            actual = objectMapper.readValue(new File("data/ferry_data.json"), Ferry.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

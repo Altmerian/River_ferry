@@ -5,7 +5,7 @@
                      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log"
                      ignoreExceptions="true">
             <PatternLayout>
-                <Pattern>%d [%t] %-5p %c{6} [%t] %m%n %ex{short}</Pattern>
+                <Pattern>%d [%-16t] %-5p %c{6} [%t] %m%n %ex{short}</Pattern>
             </PatternLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
@@ -15,7 +15,7 @@
         </RollingFile>
 
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{6} - %msg%n %ex{short}"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%-16t] %-5level %logger{6} - %msg%n %ex{short}"/>
         </Console>
     </Appenders>
 
