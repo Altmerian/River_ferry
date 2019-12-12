@@ -12,15 +12,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class FerryBoat implements Runnable {
 
     public static final FerryBoat INSTANCE = new FerryBoat();
+    private final static Logger logger = LogManager.getLogger();
     public final Lock checkpointLock = new ReentrantLock(true);
     public Phaser checkpoint;
     public double reservedArea;
     public double reservedCapacity;
     public Condition onTheWay = checkpointLock.newCondition();
-
     private double loadingArea;
     private double carryingCapacity;
-    private final static Logger logger = LogManager.getLogger();
 
     private FerryBoat() {
     }
@@ -32,10 +31,10 @@ public class FerryBoat implements Runnable {
             logger.info("The ferry boat arrives!");
             try {
                 TimeUnit.SECONDS.sleep(2); //uploading
-                logger.info("The ferry boat sail out!");
+                logger.info("The ferry boat sails out!");
                 checkpoint.arriveAndAwaitAdvance();
             } catch (InterruptedException e) {
-                logger.error("The ferry boat was stopped by unknown cause!");
+                logger.error("The ferry boat has been stopped by unknown cause!");
             }
         } while (!checkpoint.isTerminated());
 

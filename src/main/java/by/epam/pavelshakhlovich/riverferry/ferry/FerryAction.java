@@ -24,9 +24,9 @@ public class FerryAction {
                     FerryBoat.INSTANCE.checkpointLock.lock();
                     FerryBoat.INSTANCE.onTheWay.signalAll(); // ferried carrying cars
                     FerryBoat.INSTANCE.checkpointLock.unlock();
+                    TimeUnit.SECONDS.sleep(1); //sailing back
                     logger.info("The ferry boat has made {} run and ferried the cars!",
                             getPhase() + 1);
-                    TimeUnit.SECONDS.sleep(1); //sailing back
                 } catch (InterruptedException e) {
                     logger.error("The ferry boat was stopped by unknown cause!");
                 }
@@ -41,10 +41,10 @@ public class FerryAction {
      *
      * @return {@code Ferry} object
      */
-    public static Ferry setupFerry() {
+    public static Ferry setupFerry(String dataFilePath) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(new File("data/ferry_data.json"), Ferry.class);
+            return objectMapper.readValue(new File(dataFilePath), Ferry.class);
         } catch (Exception e) {
             logger.error("File read error! Ferry was created with default parameters");
             return new Ferry(50.0, 15.0, 10);

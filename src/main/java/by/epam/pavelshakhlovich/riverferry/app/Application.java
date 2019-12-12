@@ -5,6 +5,7 @@ import by.epam.pavelshakhlovich.riverferry.car.CarCreator;
 import by.epam.pavelshakhlovich.riverferry.ferry.Ferry;
 import by.epam.pavelshakhlovich.riverferry.ferry.FerryAction;
 import by.epam.pavelshakhlovich.riverferry.ferry.FerryBoat;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         logger.trace("Entry");
-        Ferry ferry = FerryAction.setupFerry();
+        Ferry ferry = FerryAction.setupFerry("data/ferry_data.json");
         FerryAction.createFerryBoat(ferry);
 
         CarCreator carCreator = new CarCreator();
@@ -36,7 +37,8 @@ public class Application {
         es.awaitTermination(15, TimeUnit.SECONDS);
 
         for (Future<Car> future : list) {
-            logger.info("The car's #{} state: {}", future.get().getId(), future.get().getCarState());
+            logger.printf(Level.INFO, "The car's #%-2d state: %s",
+                    future.get().getId(), future.get().getCurrentCarState().getTitle());
         }
         logger.trace("Exit");
     }
