@@ -24,17 +24,15 @@ public class Application {
         Ferry ferry = FerryAction.setupFerry("data/ferry_data.json");
         FerryAction.createFerryBoat(ferry);
 
-        CarCreator carCreator = new CarCreator();
-        List<Future<Car>> list = new ArrayList<>();
-
         ExecutorService es = Executors.newCachedThreadPool();
         es.submit(FerryBoat.INSTANCE);
 
+        List<Future<Car>> list = new ArrayList<>();
         for (int i = 0; i < ferry.getCarsCountToFerry(); i++) {
-            list.add(es.submit(carCreator.createCar()));
+            list.add(es.submit(CarCreator.createCar()));
         }
         es.shutdown();
-        es.awaitTermination(15, TimeUnit.SECONDS);
+        es.awaitTermination(25, TimeUnit.SECONDS);
 
         for (Future<Car> future : list) {
             logger.printf(Level.INFO, "The car's #%-2d state: %s",

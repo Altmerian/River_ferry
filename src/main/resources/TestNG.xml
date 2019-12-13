@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="All classes tests">
+    <test name="RiverFerryTest">
+        <packages>
+            <package name="by.epam.pavelshakhlovich.riverferry.*"/>
+        </packages>
+    </test>
+</suite>
+

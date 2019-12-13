@@ -5,11 +5,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CarCreator {
     private static final AtomicInteger idGenerator = new AtomicInteger(1);
-    Random random = new Random();
-    double CAR_AREA_SQ_M = 8.0;
-    double CAR_WEIGHT_TONS = 1.5;
+    private static final double CAR_AREA_SQ_M = 8.0;
+    private static final double CAR_WEIGHT_TONS = 1.5;
 
-    public Car createCar() {
+    public static Car createCar() {
+        Random random = new Random();
         CarType carType = CarType.PASSENGER;
         if (random.nextInt(4) == 3) {
             carType = CarType.FREIGHT;

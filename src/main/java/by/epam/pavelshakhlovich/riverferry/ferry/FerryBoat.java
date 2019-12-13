@@ -1,5 +1,6 @@
 package by.epam.pavelshakhlovich.riverferry.ferry;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,8 @@ public class FerryBoat implements Runnable {
     private double loadingArea;
     private double carryingCapacity;
 
-    private FerryBoat() {
+    @VisibleForTesting
+    FerryBoat() {
     }
 
     @Override
