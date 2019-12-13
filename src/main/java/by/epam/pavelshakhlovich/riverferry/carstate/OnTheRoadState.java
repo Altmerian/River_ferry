@@ -16,7 +16,7 @@ public class OnTheRoadState extends CarState {
     @Override
     public void performAction(Car car) {
         try {
-            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(1_500)); //driving to the ferry
+            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(1_000)); //driving to the ferry
             FerryBoat.INSTANCE.checkpoint.register();
             logger.info("Car #{} has driven up to the ferry.", car.getId());
             car.setCurrentCarState(new WaitingForUploadState());

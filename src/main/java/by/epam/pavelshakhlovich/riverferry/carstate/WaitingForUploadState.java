@@ -34,7 +34,7 @@ public class WaitingForUploadState extends CarState {
     private boolean hasUploadedToFerryBoat(Car car) {
         FerryBoat.INSTANCE.checkpointLock.lock();
         try {
-            TimeUnit.MILLISECONDS.sleep(500); //trying to get on the ferry boat
+            TimeUnit.MILLISECONDS.sleep(50); //trying to get on the ferry boat
             double reservedArea = FerryBoat.INSTANCE.getReservedArea();
             double reservedCapacity = FerryBoat.INSTANCE.getReservedCapacity();
             if (reservedArea + car.getCarArea() <= FerryBoat.INSTANCE.getLoadingArea()

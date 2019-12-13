@@ -5,6 +5,9 @@ public class Ferry {
     private double requiredCarryingCapacity;
     private int carsCountToFerry;
 
+    public Ferry() {
+    }
+
     public Ferry(double requiredLoadingArea, double requiredCarryingCapacity, int carsCountToFerry) {
         this.requiredLoadingArea = requiredLoadingArea;
         this.requiredCarryingCapacity = requiredCarryingCapacity;

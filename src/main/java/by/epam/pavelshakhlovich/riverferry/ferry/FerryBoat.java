@@ -32,7 +32,7 @@ public class FerryBoat implements Runnable {
         do {
             logger.info("The ferry boat arrives!");
             try {
-                TimeUnit.SECONDS.sleep(2); //uploading
+                TimeUnit.SECONDS.sleep(3); //uploading
                 logger.info("The ferry boat sails out!");
                 checkpoint.arriveAndAwaitAdvance();
             } catch (InterruptedException e) {
