@@ -37,7 +37,6 @@ public class Car implements Callable<Car> {
         while (!(currentCarState instanceof AlreadyFerriedState)) {
             continueDriving();
         }
-        logger.printf(Level.INFO, "Car #%-2d has been successfully ferried and continued driving.", id);
         return this;
     }
 

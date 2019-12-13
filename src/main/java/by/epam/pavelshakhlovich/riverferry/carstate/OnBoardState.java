@@ -2,6 +2,7 @@ package by.epam.pavelshakhlovich.riverferry.carstate;
 
 import by.epam.pavelshakhlovich.riverferry.car.Car;
 import by.epam.pavelshakhlovich.riverferry.ferry.FerryBoat;
+import org.apache.logging.log4j.Level;
 
 public class OnBoardState extends CarState {
 
@@ -15,6 +16,9 @@ public class OnBoardState extends CarState {
         FerryBoat.INSTANCE.checkpointLock.lock();
         try {
             FerryBoat.INSTANCE.onTheWay.await(); //carried by the ferry boat
+            logger.printf(Level.INFO, "Car #%-2d has been successfully ferried and continued driving.",
+                    car.getId());
+
         } catch (InterruptedException e) {
             logger.error("Car #{} has been disappeared while carrying...", car.getId());
         } finally {

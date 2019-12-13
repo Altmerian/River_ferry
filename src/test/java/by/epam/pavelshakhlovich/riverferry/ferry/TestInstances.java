@@ -30,5 +30,17 @@ public class TestInstances {
         assertEquals(actual, expected);
     }
 
+    public FerryBoat getFerryBoat() {
+        return ferryBoat;
+    }
+
+    public Car getPassengerCar() {
+        return passengerCar;
+    }
+
+    public Car getFreightCar() {
+        return freightCar;
+    }
+
 
 }

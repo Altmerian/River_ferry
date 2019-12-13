@@ -48,6 +48,7 @@ public class FerryAction {
                 FerryBoat.INSTANCE.setReservedArea(0.00);
                 FerryBoat.INSTANCE.setReservedCapacity(0.00);
                 try {
+                    logger.info("The ferry boat sails out!");
                     TimeUnit.SECONDS.sleep(1); //sailing
                     FerryBoat.INSTANCE.checkpointLock.lock();
                     FerryBoat.INSTANCE.onTheWay.signalAll(); // ferried carrying cars
